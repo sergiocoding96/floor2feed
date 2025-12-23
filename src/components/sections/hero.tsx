@@ -6,7 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout";
 import { Button } from "@/components/ui/button";
+import { YouTubeModal } from "@/components/features";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+
+// Floor2Feed demo video
+const DEMO_VIDEO_ID = "cLPSK7-hl6w";
 
 export function Hero() {
   return (
@@ -60,16 +64,17 @@ export function Hero() {
               variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-4 mb-10"
             >
-              <Button
-                size="lg"
-                className="bg-gold hover:bg-bronze text-white font-medium px-8 py-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group"
-                asChild
-              >
-                <Link href="#demo" className="flex items-center gap-2">
-                  <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  Watch Demo
-                </Link>
-              </Button>
+              <YouTubeModal videoId={DEMO_VIDEO_ID}>
+                <Button
+                  size="lg"
+                  className="bg-gold hover:bg-bronze text-white font-medium px-8 py-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 group"
+                >
+                  <span className="flex items-center gap-2">
+                    <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Watch Demo
+                  </span>
+                </Button>
+              </YouTubeModal>
               <Button
                 size="lg"
                 variant="outline"

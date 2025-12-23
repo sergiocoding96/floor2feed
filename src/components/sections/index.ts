@@ -1,6 +1,8 @@
 export { Hero } from "./hero";
 export { Problem } from "./problem";
 export { Solution } from "./solution";
+export { VideoDemo } from "./video-demo";
+export { Transformation } from "./transformation";
 export { Deliverables } from "./deliverables";
 export { PricingCalculator } from "./pricing-calculator";
 export { Process } from "./process";

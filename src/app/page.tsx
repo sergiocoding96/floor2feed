@@ -3,6 +3,8 @@ import {
   Hero,
   Problem,
   Solution,
+  VideoDemo,
+  Transformation,
   Deliverables,
   PricingCalculator,
   Process,
@@ -19,6 +21,8 @@ export default function Home() {
         <Hero />
         <Problem />
         <Solution />
+        <VideoDemo />
+        <Transformation />
         <Deliverables />
         <Process />
         <PricingCalculator />
