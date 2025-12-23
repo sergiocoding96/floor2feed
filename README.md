@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Floor2Feed - AI-Powered Real Estate Marketing
+
+A high-converting landing page for Floor2Feed, an AI-powered social media management service for Spanish real estate developers.
+
+## Target Audience
+
+- **Primary Persona**: Miguel, 42-year-old Spanish real estate developer
+- **Company Size**: Mid-sized development firm (15-50 employees)
+- **Projects**: 20-50 unit developments, €300k-€700k per unit
+- **Locations**: Costa del Sol, Madrid, Barcelona, Valencia
+
+## Tech Stack
+
+- **Framework**: Next.js 14+ (App Router)
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v3.4+
+- **Components**: Shadcn/ui
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod validation
+- **Deployment**: Vercel
+
+## Brand Design System
+
+### Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Midnight Charcoal | `#1A1A1D` | Primary text, headings |
+| Pearl White | `#F8F9FA` | Primary background |
+| Silver Mist | `#E8E9EB` | Dividers, borders |
+| Burnished Gold | `#D4A574` | CTAs, accents (PRIMARY) |
+| Light Gold | `#E8D5B7` | Subtle backgrounds |
+| Deep Bronze | `#A67C52` | Active states, shadows |
+
+### Typography
+
+- **Font**: Inter (Google Fonts)
+- **Weights**: 400 (Regular), 500 (Medium), 600 (Semibold)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.17 or later
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project directory
+cd floor2feed-website
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file with:
 
-## Learn More
+```env
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+FORMSPREE_ID=your_formspree_id
+NEXT_PUBLIC_SITE_URL=https://floor2feed.com
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md) for detailed file organization.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development
 
-## Deploy on Vercel
+```bash
+# Development server
+npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Build for production
+npm run build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start production server
+npm start
+
+# Lint code
+npm run lint
+
+# Type check
+npm run type-check
+```
+
+## Deployment
+
+The project is configured for Vercel deployment:
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+```
+
+## Key Features
+
+- Responsive design (mobile-first)
+- Scroll-triggered animations
+- Interactive pricing calculator
+- Contact form with validation
+- YouTube video embeds
+- SEO optimized with structured data
+- WCAG 2.1 AA accessibility compliance
+
+## Performance Targets
+
+- Lighthouse Performance: 90+
+- Lighthouse Accessibility: 90+
+- Lighthouse Best Practices: 90+
+- Lighthouse SEO: 90+
+- Page Load: < 3 seconds
+
+## License
+
+Proprietary - Floor2Feed © 2025

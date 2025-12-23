@@ -1,26 +1,243 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =============================================================================
+   FLOOR2FEED DESIGN SYSTEM
+   European architectural sophistication meets tech elegance
+   ============================================================================= */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Floor2Feed Brand Colors */
+  --midnight: #1A1A1D;
+  --pearl: #F8F9FA;
+  --silver: #E8E9EB;
+  --gold: #D4A574;
+  --gold-light: #E8D5B7;
+  --bronze: #A67C52;
+
+  /* Custom Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-luxury: 0 1px 3px rgba(0,0,0,0.05), 0 10px 30px rgba(0,0,0,0.08);
+
+  /* Shadcn/ui Design Tokens - Customized for Floor2Feed */
+  --radius: 0.5rem;
+  --background: var(--pearl);
+  --foreground: var(--midnight);
+  --card: #FFFFFF;
+  --card-foreground: var(--midnight);
+  --popover: #FFFFFF;
+  --popover-foreground: var(--midnight);
+  --primary: var(--gold);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--silver);
+  --secondary-foreground: var(--midnight);
+  --muted: var(--silver);
+  --muted-foreground: #6B7280;
+  --accent: var(--gold-light);
+  --accent-foreground: var(--midnight);
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: var(--silver);
+  --input: var(--silver);
+  --ring: var(--gold);
+  --chart-1: var(--gold);
+  --chart-2: var(--bronze);
+  --chart-3: var(--midnight);
+  --chart-4: var(--silver);
+  --chart-5: var(--gold-light);
 }
 
 @theme inline {
+  /* Floor2Feed Brand Colors */
+  --color-midnight: var(--midnight);
+  --color-pearl: var(--pearl);
+  --color-silver: var(--silver);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-bronze: var(--bronze);
+
+  /* Shadcn/ui Compatible Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Font Family */
+  --font-sans: var(--font-inter);
+
+  /* Radius Scale */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Custom Shadow */
+  --shadow-luxury: var(--shadow-luxury);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =============================================================================
+   BASE STYLES
+   ============================================================================= */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================================
+   TYPOGRAPHY
+   ============================================================================= */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--midnight);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* =============================================================================
+   FOCUS STATES (Accessibility)
+   ============================================================================= */
+
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* =============================================================================
+   SELECTION STYLES
+   ============================================================================= */
+
+::selection {
+  background-color: var(--gold-light);
+  color: var(--midnight);
+}
+
+/* =============================================================================
+   SCROLLBAR STYLES
+   ============================================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pearl);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--silver);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   ============================================================================= */
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-subtle {
+  background: linear-gradient(180deg, var(--pearl) 0%, rgba(232, 213, 183, 0.3) 100%);
+}
+
+.bg-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--bronze) 100%);
+}
+
+/* =============================================================================
+   ANIMATION UTILITIES
+   ============================================================================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--silver) 0%,
+    var(--pearl) 50%,
+    var(--silver) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* =============================================================================
+   LAYER BASE - Shadcn/ui Compatibility
+   ============================================================================= */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
