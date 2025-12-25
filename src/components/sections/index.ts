@@ -5,6 +5,7 @@ export { VideoDemo } from "./video-demo";
 export { Transformation } from "./transformation";
 export { Deliverables } from "./deliverables";
 export { PricingCalculator } from "./pricing-calculator";
+export { PricingTiers } from "./pricing-tiers";
 export { Process } from "./process";
 export { CaseStudies } from "./case-studies";
 export { FAQ } from "./faq";

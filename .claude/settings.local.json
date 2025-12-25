@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(copy:*)",
+      "Bash(cmd /c copy \"c:\\\\Users\\\\Roquelina.Martínez\\\\Downloads\\\\Gemini_Generated_Image_t6pvxzt6pvxzt6pv.png\" \"public\\\\360-render.png\")",
+      "Bash(cmd /c \"dir public\\\\360-render.png\")",
+      "Bash(cmd /c \"copy /Y \"\"c:\\\\Users\\\\Roquelina.Martínez\\\\Downloads\\\\Gemini_Generated_Image_t6pvxzt6pvxzt6pv.png\"\" \"\"public\\\\360-render.png\"\"\")",
+      "Bash(powershell -Command \"Copy-Item ''c:\\\\Users\\\\Roquelina.Martínez\\\\Downloads\\\\Gemini_Generated_Image_t6pvxzt6pvxzt6pv.png'' -Destination ''public\\\\360-render.png'' -Force; if\\(Test-Path ''public\\\\360-render.png''\\) { Write-Host ''File copied successfully'' }\")",
+      "Bash(git add:*)"
+    ]
+  }
+}

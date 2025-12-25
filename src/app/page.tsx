@@ -6,7 +6,7 @@ import {
   VideoDemo,
   Transformation,
   Deliverables,
-  PricingCalculator,
+  PricingTiers,
   Process,
   CaseStudies,
   FAQ,
@@ -25,7 +25,7 @@ export default function Home() {
         <Transformation />
         <Deliverables />
         <Process />
-        <PricingCalculator />
+        <PricingTiers />
         <CaseStudies />
         <FAQ />
         <ContactCTA />

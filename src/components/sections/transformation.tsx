@@ -1,15 +1,33 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Grid3X3, View } from "lucide-react";
 import { Container, Section } from "@/components/layout";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import dynamic from "next/dynamic";
+import { cn } from "@/lib/utils";
+
+// Dynamic import for 360 viewer (client-only, reduces initial bundle)
+const Viewer360 = dynamic(
+  () => import("@/components/features/viewer-360").then((mod) => mod.Viewer360),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="aspect-video bg-midnight/10 rounded-xl flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-gold border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+);
+
+type ViewMode = "grid" | "360";
 
 export function Transformation() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [viewMode, setViewMode] = useState<ViewMode>("grid");
 
   return (
     <Section background="pearl" id="transformation">
@@ -100,7 +118,7 @@ export function Transformation() {
                 </motion.div>
               </div>
 
-              {/* Social Media Grid - Right Side */}
+              {/* Content Output - Right Side */}
               <div className="lg:col-span-9">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
@@ -109,20 +127,52 @@ export function Transformation() {
                   className="relative"
                 >
                   <div className="bg-white rounded-2xl p-4 shadow-lg">
-                    <div className="text-center mb-3">
-                      <span className="inline-flex items-center gap-2 text-sm font-medium text-gold">
-                        <Sparkles className="w-4 h-4" />
-                        AI-Generated Social Media Content
-                      </span>
+                    {/* Tab Buttons */}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <button
+                        onClick={() => setViewMode("grid")}
+                        className={cn(
+                          "inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                          viewMode === "grid"
+                            ? "bg-gold text-white"
+                            : "bg-pearl text-midnight/70 hover:bg-silver"
+                        )}
+                      >
+                        <Grid3X3 className="w-4 h-4" />
+                        Social Grid
+                      </button>
+                      <button
+                        onClick={() => setViewMode("360")}
+                        className={cn(
+                          "relative inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                          viewMode === "360"
+                            ? "bg-gold text-white"
+                            : "bg-gradient-to-r from-gold/20 to-bronze/20 text-midnight hover:from-gold/30 hover:to-bronze/30 border border-gold/50"
+                        )}
+                      >
+                        <View className={cn("w-4 h-4", viewMode !== "360" && "animate-pulse")} />
+                        360° Render
+                        {viewMode !== "360" && (
+                          <span className="absolute -top-2 -right-2 px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full animate-bounce">
+                            TRY
+                          </span>
+                        )}
+                      </button>
                     </div>
+
+                    {/* Content Area */}
                     <div className="relative rounded-lg overflow-hidden">
-                      <Image
-                        src="/images/social-grid.png"
-                        alt="Social media content grid generated from floor plan"
-                        width={1200}
-                        height={800}
-                        className="w-full h-auto"
-                      />
+                      {viewMode === "grid" ? (
+                        <Image
+                          src="/images/social-grid.png"
+                          alt="Social media content grid generated from floor plan"
+                          width={1200}
+                          height={800}
+                          className="w-full h-auto"
+                        />
+                      ) : (
+                        <Viewer360 imageUrl="/360-render.png" />
+                      )}
                     </div>
                   </div>
 

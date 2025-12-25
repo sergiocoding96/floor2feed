@@ -1,0 +1,59 @@
+/* Floor2Feed Admin Theme - Gold/Midnight Styling */
+
+:root {
+  --theme-elevation-0: #F8F9FA; /* Pearl */
+  --theme-elevation-50: #F8F9FA;
+  --theme-elevation-100: #E8E9EB; /* Silver */
+  --theme-elevation-150: #E8E9EB;
+  --theme-elevation-200: #E8E9EB;
+  --theme-elevation-250: #E8E9EB;
+  --theme-elevation-300: #d1d5db;
+  --theme-elevation-350: #d1d5db;
+  --theme-elevation-400: #9ca3af;
+  --theme-elevation-450: #9ca3af;
+  --theme-elevation-500: #6b7280;
+  --theme-elevation-550: #6b7280;
+  --theme-elevation-600: #4b5563;
+  --theme-elevation-650: #4b5563;
+  --theme-elevation-700: #374151;
+  --theme-elevation-750: #374151;
+  --theme-elevation-800: #1f2937;
+  --theme-elevation-850: #1f2937;
+  --theme-elevation-900: #1A1A1D; /* Midnight */
+  --theme-elevation-950: #1A1A1D;
+  --theme-elevation-1000: #0a0a0a;
+
+  --theme-success-100: #dcfce7;
+  --theme-success-500: #22c55e;
+  --theme-error-100: #fee2e2;
+  --theme-error-500: #ef4444;
+  --theme-warning-100: #fef3c7;
+  --theme-warning-500: #f59e0b;
+}
+
+/* Gold accent colors */
+[data-theme="light"] {
+  --theme-text: #1A1A1D;
+  --theme-bg: #F8F9FA;
+}
+
+/* Primary button styling with gold */
+.btn--style-primary {
+  background-color: #D4A574 !important;
+  border-color: #D4A574 !important;
+}
+
+.btn--style-primary:hover {
+  background-color: #A67C52 !important;
+  border-color: #A67C52 !important;
+}
+
+/* Links with gold accent */
+a:not(.btn):hover {
+  color: #D4A574;
+}
+
+/* Focus rings with gold */
+*:focus-visible {
+  outline-color: #D4A574;
+}

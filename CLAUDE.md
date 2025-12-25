@@ -26,13 +26,16 @@ Floor2Feed is a high-converting landing page for an AI-powered social media mana
 
 ## Tech Stack
 
-- **Framework**: Next.js 14+ (App Router)
+- **Framework**: Next.js 15.x (App Router)
 - **Language**: TypeScript (strict mode)
 - **Styling**: Tailwind CSS v4 (CSS-based config in globals.css)
 - **Components**: Shadcn/ui
 - **Animations**: Framer Motion
 - **Forms**: React Hook Form + Zod
 - **Icons**: Lucide React
+- **CMS**: Payload CMS 3.0
+- **Database**: Supabase PostgreSQL
+- **Rich Text**: Lexical Editor (@payloadcms/richtext-lexical)
 - **Deployment**: Vercel
 
 ## Design System
@@ -65,21 +68,45 @@ Use Tailwind classes: `bg-midnight`, `text-gold`, `border-silver`, etc.
 ## Project Structure
 
 ```
-src/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Homepage
-│   └── globals.css         # Global styles + Tailwind theme
-├── components/
-│   ├── ui/                 # Shadcn/ui components
-│   ├── layout/             # Navbar, Footer, Section, Container
-│   ├── sections/           # Hero, Problem, Solution, etc.
-│   ├── features/           # YouTubeEmbed, Timeline, etc.
-│   └── forms/              # ContactForm, Newsletter
-├── lib/
-│   ├── utils.ts            # cn() function, utilities
-│   └── animations.ts       # Framer Motion variants
-└── hooks/                  # Custom hooks
+├── payload.config.ts           # Payload CMS configuration
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx          # Root layout
+│   │   ├── page.tsx            # Homepage
+│   │   ├── globals.css         # Global styles + Tailwind theme
+│   │   ├── blog/
+│   │   │   ├── page.tsx        # Blog listing page
+│   │   │   └── [slug]/page.tsx # Individual blog post
+│   │   └── (payload)/
+│   │       ├── admin/[[...segments]]/page.tsx  # Admin panel
+│   │       ├── layout.tsx      # Payload layout
+│   │       └── admin.css       # Admin theme (gold/midnight)
+│   ├── collections/            # Payload CMS collections
+│   │   ├── Users.ts            # Admin users
+│   │   ├── Media.ts            # Image uploads
+│   │   ├── Categories.ts       # Blog categories
+│   │   ├── Authors.ts          # Author profiles
+│   │   └── Posts.ts            # Blog posts with SEO fields
+│   ├── components/
+│   │   ├── ui/                 # Shadcn/ui components
+│   │   ├── layout/             # Navbar, Footer, Section, Container
+│   │   ├── sections/           # Hero, Problem, Solution, etc.
+│   │   ├── features/           # YouTubeEmbed, Timeline, etc.
+│   │   ├── forms/              # ContactForm, Newsletter
+│   │   └── blog/               # Blog components
+│   │       ├── BlogCard.tsx    # Post card with hover effects
+│   │       ├── BlogList.tsx    # Grid with stagger animations
+│   │       ├── BlogHero.tsx    # Hero for /blog page
+│   │       ├── CategoryFilter.tsx  # Category tabs
+│   │       ├── RichText.tsx    # Lexical content renderer
+│   │       ├── BlogAuthor.tsx  # Author bio card
+│   │       ├── ShareButtons.tsx    # Social sharing
+│   │       └── RelatedPosts.tsx    # Related articles
+│   ├── lib/
+│   │   ├── utils.ts            # cn() function, utilities
+│   │   └── animations.ts       # Framer Motion variants
+│   ├── hooks/                  # Custom hooks
+│   └── payload-types.ts        # Auto-generated Payload types
 ```
 
 ## Development Commands
@@ -162,6 +189,29 @@ const contactSchema = z.object({
 7. **Case Studies**: ✅ 3 project cards with testimonials and mobile carousel
 8. **FAQ**: ✅ Accordion with 10 questions
 9. **Final CTA**: ✅ Contact form with React Hook Form + Zod validation
+10. **Blog (Payload CMS)**: ✅ Full blog with admin panel, categories, authors, SEO
+
+## Blog Setup (Payload CMS)
+
+### Environment Variables Required
+
+```env
+DATABASE_URL=postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+PAYLOAD_SECRET=your-secret-key-min-32-chars
+NEXT_PUBLIC_SITE_URL=https://floor2feed.com
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
+```
+
+### Admin Panel Access
+
+- URL: `/admin`
+- First user created becomes admin
+- Gold/midnight themed to match brand
+
+### Blog Routes
+
+- `/blog` - Blog listing with category filter
+- `/blog/[slug]` - Individual post with SEO metadata
 
 ## Important Reminders
 
