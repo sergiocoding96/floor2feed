@@ -14,7 +14,13 @@
       "Bash(git push:*)",
       "Bash(git checkout:*)",
       "Bash(gh pr create:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Vercel build errors\n\n- Remove invalid favicon/ogImage from Payload meta config\n- Add .js extension to ESLint config imports\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Vercel build errors\n\n- Remove invalid favicon/ogImage from Payload meta config\n- Add .js extension to ESLint config imports\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git fetch:*)",
+      "Bash(git merge:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:vercel.com)",
+      "WebFetch(domain:floor2feed.vercel.app)",
+      "Bash(git commit:*)"
     ]
   }
 }
