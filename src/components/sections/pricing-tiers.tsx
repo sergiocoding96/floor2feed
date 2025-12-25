@@ -121,35 +121,6 @@ const comparisonRows = [
   { label: "Support Response", key: "supportHours" },
 ];
 
-function AnimatedNumber({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useState(() => {
-    if (isInView) {
-      const duration = 1500;
-      const startTime = Date.now();
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        setDisplayValue(Math.floor(value * easeOut));
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
-      requestAnimationFrame(animate);
-    }
-  });
-
-  return (
-    <span ref={ref}>
-      {prefix}{displayValue.toLocaleString()}{suffix}
-    </span>
-  );
-}
-
 function TierCard({ tierKey, tier, isSelected, onSelect }: {
   tierKey: TierKey;
   tier: Tier;

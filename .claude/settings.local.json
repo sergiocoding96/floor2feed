@@ -20,7 +20,13 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:vercel.com)",
       "WebFetch(domain:floor2feed.vercel.app)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx payload:*)",
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\payload.config.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\payload-types.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\collections'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\\\(payload\\)'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\blog'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\components\\\\blog'' -Recurse -Force\")"
     ]
   }
 }
