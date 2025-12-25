@@ -22,8 +22,6 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: ' | Floor2Feed Blog',
-      favicon: '/favicon.ico',
-      ogImage: '/og-image.jpg',
     },
   },
   collections: [Users, Media, Categories, Authors, Posts],

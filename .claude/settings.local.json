@@ -9,7 +9,12 @@
       "Bash(cmd /c \"dir public\\\\360-render.png\")",
       "Bash(cmd /c \"copy /Y \"\"c:\\\\Users\\\\Roquelina.Martínez\\\\Downloads\\\\Gemini_Generated_Image_t6pvxzt6pvxzt6pv.png\"\" \"\"public\\\\360-render.png\"\"\")",
       "Bash(powershell -Command \"Copy-Item ''c:\\\\Users\\\\Roquelina.Martínez\\\\Downloads\\\\Gemini_Generated_Image_t6pvxzt6pvxzt6pv.png'' -Destination ''public\\\\360-render.png'' -Force; if\\(Test-Path ''public\\\\360-render.png''\\) { Write-Host ''File copied successfully'' }\")",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd 3-tier pricing, 360 viewer, and Payload CMS blog\n\n- Add new pricing-tiers component with Essential, Professional, and Premium tiers\n- Create lightweight 360° panorama viewer with pinch/scroll zoom support\n- Integrate 360 viewer into Transformation section with tabbed interface\n- Set up Payload CMS 3.0 with PostgreSQL adapter\n- Create blog collections \\(Posts, Categories, Authors, Media, Users\\)\n- Add blog components \\(BlogCard, BlogList, RichText, etc.\\)\n- Create /blog listing and /blog/[slug] pages with SEO metadata\n- Update navbar and footer with Blog links\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)",
+      "Bash(gh pr create:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix Vercel build errors\n\n- Remove invalid favicon/ogImage from Payload meta config\n- Add .js extension to ESLint config imports\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
