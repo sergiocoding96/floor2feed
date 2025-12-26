@@ -26,7 +26,20 @@
       "Bash(npm run build:*)",
       "Bash(npx payload:*)",
       "Bash(dir:*)",
-      "Bash(powershell -Command \"Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\payload.config.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\payload-types.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\collections'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\\\(payload\\)'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\blog'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\components\\\\blog'' -Recurse -Force\")"
+      "Bash(powershell -Command \"Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\payload.config.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\payload-types.ts'' -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\collections'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\\\(payload\\)'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\blog'' -Recurse -Force; Remove-Item -Path ''C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\components\\\\blog'' -Recurse -Force\")",
+      "Bash(git pull:*)",
+      "mcp__vercel__list_teams",
+      "mcp__vercel__list_projects",
+      "mcp__vercel__get_project",
+      "mcp__vercel__list_deployments",
+      "mcp__vercel__web_fetch_vercel_url",
+      "mcp__github__create_pull_request",
+      "mcp__github__merge_pull_request",
+      "mcp__vercel__get_deployment",
+      "mcp__vercel__get_deployment_build_logs",
+      "mcp__github__get_pull_request",
+      "mcp__github__get_pull_request_status",
+      "mcp__github__get_pull_request_files"
     ]
   }
 }
