@@ -1,0 +1,74 @@
+/* Floor2Feed Admin Theme - Gold & Midnight */
+
+:root {
+  --theme-elevation-0: #1A1A1D;
+  --theme-elevation-50: #232326;
+  --theme-elevation-100: #2d2d30;
+  --theme-elevation-150: #37373a;
+  --theme-elevation-200: #414144;
+  --theme-elevation-250: #4b4b4e;
+  --theme-elevation-300: #555558;
+  --theme-elevation-350: #5f5f62;
+  --theme-elevation-400: #69696c;
+  --theme-elevation-450: #737376;
+  --theme-elevation-500: #7d7d80;
+  --theme-elevation-550: #87878a;
+  --theme-elevation-600: #919194;
+  --theme-elevation-650: #9b9b9e;
+  --theme-elevation-700: #a5a5a8;
+  --theme-elevation-750: #afafb2;
+  --theme-elevation-800: #b9b9bc;
+  --theme-elevation-850: #c3c3c6;
+  --theme-elevation-900: #cdcdd0;
+  --theme-elevation-950: #d7d7da;
+  --theme-elevation-1000: #F8F9FA;
+
+  --theme-success-50: #0a3622;
+  --theme-success-100: #0d4a2d;
+  --theme-success-200: #115e38;
+  --theme-success-300: #157243;
+  --theme-success-400: #19864e;
+  --theme-success-500: #1d9a59;
+  --theme-success-600: #22ae64;
+  --theme-success-700: #26c26f;
+  --theme-success-800: #47cf88;
+  --theme-success-900: #6ddca0;
+  --theme-success-950: #93e9b8;
+
+  --theme-error-50: #4d0000;
+  --theme-error-100: #660000;
+  --theme-error-200: #800000;
+  --theme-error-300: #990000;
+  --theme-error-400: #b30000;
+  --theme-error-500: #cc0000;
+  --theme-error-600: #e60000;
+  --theme-error-700: #ff0000;
+  --theme-error-800: #ff3333;
+  --theme-error-900: #ff6666;
+  --theme-error-950: #ff9999;
+
+  --theme-text: #F8F9FA;
+  --theme-bg: #1A1A1D;
+}
+
+/* Gold accent for primary actions */
+.btn--style-primary,
+button[class*="primary"] {
+  background-color: #D4A574 !important;
+  border-color: #D4A574 !important;
+}
+
+.btn--style-primary:hover,
+button[class*="primary"]:hover {
+  background-color: #A67C52 !important;
+  border-color: #A67C52 !important;
+}
+
+/* Gold links */
+a:not(.btn) {
+  color: #D4A574;
+}
+
+a:not(.btn):hover {
+  color: #A67C52;
+}
