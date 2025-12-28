@@ -39,7 +39,23 @@
       "mcp__vercel__get_deployment_build_logs",
       "mcp__github__get_pull_request",
       "mcp__github__get_pull_request_status",
-      "mcp__github__get_pull_request_files"
+      "mcp__github__get_pull_request_files",
+      "mcp__github__list_pull_requests",
+      "mcp__plugin_supabase_supabase__list_projects",
+      "mcp__plugin_supabase_supabase__apply_migration",
+      "mcp__plugin_supabase_supabase__list_tables",
+      "Bash(claude mcp get:*)",
+      "Bash(claude mcp remove:*)",
+      "WebFetch(domain:scrapfly.io)",
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://mcp.scrapfly.io/sse'' -Method Head -UseBasicParsing | Select-Object StatusCode, StatusDescription\")",
+      "Bash(del \"C:\\\\Users\\\\Roquelina.Martínez\\\\Desktop\\\\Coding\\\\Floor2Feed Website\\\\floor2feed-blog\\\\src\\\\app\\\\api\\\\debug-payload\\\\route.ts\")",
+      "Bash(powershell:*)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(mkdir:*)",
+      "mcp__scrapfly__scraping_instruction_enhanced",
+      "mcp__scrapfly__web_get_page"
     ]
   }
 }

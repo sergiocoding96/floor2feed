@@ -6,3 +6,4 @@ export { CategoryFilter } from "./CategoryFilter";
 export { RelatedPosts } from "./RelatedPosts";
 export { RichText } from "./RichText";
 export { ShareButtons } from "./ShareButtons";
+export { MDXContent } from "./MDXContent";

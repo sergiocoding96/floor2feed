@@ -1,9 +1,7 @@
 import { Metadata } from "next";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { Container } from "@/components/layout/container";
 import { BlogHero, BlogList } from "@/components/blog";
-import type { Post } from "@/payload-types";
+import { getAllPosts } from "@/lib/keystatic";
 
 export const metadata: Metadata = {
   title: "Blog | Floor2Feed - Real Estate Marketing Insights",
@@ -17,40 +15,28 @@ export const metadata: Metadata = {
   },
 };
 
-export const dynamic = "force-dynamic";
-
-async function getPosts(): Promise<Post[]> {
-  try {
-    const payload = await getPayload({ config });
-
-    const result = await payload.find({
-      collection: "posts",
-      where: {
-        status: {
-          equals: "published",
-        },
-      },
-      sort: "-publishedAt",
-      limit: 50,
-      depth: 2,
-    });
-
-    return result.docs as Post[];
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return [];
-  }
-}
-
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
+
+  // Serialize posts for client component (remove content function)
+  const serializedPosts = posts.map((post) => ({
+    slug: post.slug,
+    entry: {
+      title: post.entry.title,
+      excerpt: post.entry.excerpt,
+      featuredImage: post.entry.featuredImage,
+      publishedAt: post.entry.publishedAt,
+      readTime: post.entry.readTime,
+      category: post.entry.category,
+    },
+  }));
 
   return (
     <main className="min-h-screen bg-white">
       <BlogHero />
       <section className="py-16">
         <Container>
-          <BlogList posts={posts} />
+          <BlogList posts={serializedPosts} />
         </Container>
       </section>
     </main>

@@ -1,66 +1,24 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { Container } from "@/components/layout/container";
-import { BlogAuthor, RichText, ShareButtons, RelatedPosts } from "@/components/blog";
+import { MDXContent, ShareButtons } from "@/components/blog";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import type { Post, Media, Category, Author } from "@/payload-types";
+import { reader, getAllPosts, getAuthorBySlug, getCategoryBySlug } from "@/lib/keystatic";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-async function getPost(slug: string): Promise<Post | null> {
-  try {
-    const payload = await getPayload({ config });
-
-    const result = await payload.find({
-      collection: "posts",
-      where: {
-        slug: { equals: slug },
-        status: { equals: "published" },
-      },
-      depth: 2,
-      limit: 1,
-    });
-
-    return result.docs[0] as Post | null;
-  } catch (error) {
-    console.error("Error fetching post:", error);
-    return null;
-  }
-}
-
-async function getRelatedPosts(categoryId: string, currentPostId: string): Promise<Post[]> {
-  try {
-    const payload = await getPayload({ config });
-
-    const result = await payload.find({
-      collection: "posts",
-      where: {
-        and: [
-          { category: { equals: categoryId } },
-          { id: { not_equals: currentPostId } },
-          { status: { equals: "published" } },
-        ],
-      },
-      limit: 3,
-      depth: 2,
-    });
-
-    return result.docs as Post[];
-  } catch (error) {
-    console.error("Error fetching related posts:", error);
-    return [];
-  }
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await reader.collections.posts.read(slug);
 
   if (!post) {
     return {
@@ -68,17 +26,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const featuredImage = post.featuredImage as Media | undefined;
   const seoTitle = post.seo?.metaTitle || post.title;
   const seoDescription = post.seo?.metaDescription || post.excerpt;
-  const ogImage = (post.seo?.ogImage as Media)?.url || featuredImage?.url;
+  const ogImage = post.seo?.ogImage || post.featuredImage;
 
   return {
     title: `${seoTitle} | Floor2Feed Blog`,
     description: seoDescription,
     openGraph: {
       title: seoTitle,
-      description: seoDescription,
+      description: seoDescription || undefined,
       type: "article",
       publishedTime: post.publishedAt || undefined,
       images: ogImage ? [{ url: ogImage }] : undefined,
@@ -86,28 +43,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: seoTitle,
-      description: seoDescription,
+      description: seoDescription || undefined,
       images: ogImage ? [ogImage] : undefined,
     },
   };
 }
 
-export const dynamic = "force-dynamic";
-
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = await getPost(slug);
+  const post = await reader.collections.posts.read(slug);
 
-  if (!post) {
+  if (!post || post.status !== "published") {
     notFound();
   }
 
-  const featuredImage = post.featuredImage as Media | undefined;
-  const category = post.category as Category | undefined;
-  const author = post.author as Author | undefined;
-  const categoryId = typeof post.category === "string" ? post.category : post.category?.id;
+  // Get related data
+  const category = post.category ? await getCategoryBySlug(post.category) : null;
+  const author = post.author ? await getAuthorBySlug(post.author) : null;
 
-  const relatedPosts = categoryId ? await getRelatedPosts(categoryId, post.id) : [];
+  // Get MDX content - Keystatic returns raw MDX string
+  const mdxContent = await post.content();
 
   const formattedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString("en-US", {
@@ -118,7 +73,11 @@ export default async function BlogPostPage({ params }: PageProps) {
     : null;
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://floor2feed.com";
-  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const postUrl = `${siteUrl}/blog/${slug}`;
+
+  const categoryName = category?.name
+    ? category.name.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
+    : null;
 
   return (
     <main className="min-h-screen bg-white">
@@ -133,9 +92,9 @@ export default async function BlogPostPage({ params }: PageProps) {
             Back to Blog
           </Link>
 
-          {category && (
+          {categoryName && (
             <span className="inline-block px-3 py-1 bg-gold/10 text-gold rounded-full text-sm font-medium mb-4">
-              {category.name}
+              {categoryName}
             </span>
           )}
 
@@ -163,13 +122,13 @@ export default async function BlogPostPage({ params }: PageProps) {
       </section>
 
       {/* Featured Image */}
-      {featuredImage?.url && (
+      {post.featuredImage && (
         <section className="pb-8">
           <Container>
             <div className="relative aspect-[21/9] rounded-2xl overflow-hidden">
               <Image
-                src={featuredImage.url}
-                alt={featuredImage.alt || post.title}
+                src={post.featuredImage}
+                alt={post.title}
                 fill
                 className="object-cover"
                 priority
@@ -183,46 +142,53 @@ export default async function BlogPostPage({ params }: PageProps) {
       <section className="py-8 md:py-12">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <RichText content={post.content} />
+            <MDXContent source={mdxContent} />
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-silver">
-                {post.tags.map(
-                  (tagItem, index) =>
-                    tagItem.tag && (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-silver/50 text-midnight/70 text-sm rounded-full"
-                      >
-                        #{tagItem.tag}
-                      </span>
-                    )
-                )}
+                {post.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-silver/50 text-midnight/70 text-sm rounded-full"
+                  >
+                    #{tag}
+                  </span>
+                ))}
               </div>
             )}
 
             {/* Author */}
             {author && (
-              <div className="mt-12">
+              <div className="mt-12 p-6 bg-pearl/50 rounded-xl">
                 <h3 className="text-sm font-medium text-midnight/60 mb-4">
                   Written by
                 </h3>
-                <BlogAuthor author={author} />
+                <div className="flex items-center gap-4">
+                  {author.avatar && (
+                    <Image
+                      src={author.avatar}
+                      alt={author.name}
+                      width={48}
+                      height={48}
+                      className="rounded-full"
+                    />
+                  )}
+                  <div>
+                    <p className="font-semibold text-midnight">{author.name}</p>
+                    {author.role && (
+                      <p className="text-sm text-midnight/60">{author.role}</p>
+                    )}
+                  </div>
+                </div>
+                {author.bio && (
+                  <p className="mt-4 text-midnight/70 text-sm">{author.bio}</p>
+                )}
               </div>
             )}
           </div>
         </Container>
       </section>
-
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <section className="py-8 md:py-12 bg-pearl/50">
-          <Container>
-            <RelatedPosts posts={relatedPosts} />
-          </Container>
-        </section>
-      )}
     </main>
   );
 }

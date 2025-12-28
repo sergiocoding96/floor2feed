@@ -1,10 +1,19 @@
 "use client";
 
 import { BlogCard } from "./BlogCard";
-import type { Post } from "@/payload-types";
+
+interface RelatedPost {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  featuredImage?: string;
+  publishedAt?: string;
+  readTime?: number;
+  category?: string;
+}
 
 interface RelatedPostsProps {
-  posts: Post[];
+  posts: RelatedPost[];
 }
 
 export function RelatedPosts({ posts }: RelatedPostsProps) {
@@ -17,7 +26,17 @@ export function RelatedPosts({ posts }: RelatedPostsProps) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post, index) => (
-          <BlogCard key={post.id} post={post} index={index} />
+          <BlogCard
+            key={post.slug}
+            slug={post.slug}
+            title={post.title}
+            excerpt={post.excerpt}
+            featuredImage={post.featuredImage}
+            publishedAt={post.publishedAt}
+            readTime={post.readTime}
+            category={post.category}
+            index={index}
+          />
         ))}
       </div>
     </section>
