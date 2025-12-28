@@ -4,23 +4,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
-import type { Post, Media, Category } from "@/payload-types";
 
 interface BlogCardProps {
-  post: Post;
+  slug: string;
+  title: string;
+  excerpt?: string | null;
+  featuredImage?: string | null;
+  publishedAt?: string | null;
+  readTime?: number | null;
+  category?: string | null;
   index?: number;
 }
 
-export function BlogCard({ post, index = 0 }: BlogCardProps) {
-  const featuredImage = post.featuredImage as Media | undefined;
-  const category = post.category as Category | undefined;
-
-  const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+export function BlogCard({
+  slug,
+  title,
+  excerpt,
+  featuredImage,
+  publishedAt,
+  readTime,
+  category,
+  index = 0,
+}: BlogCardProps) {
+  const formattedDate = publishedAt
+    ? new Date(publishedAt).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
       })
+    : null;
+
+  const categoryName = category
+    ? category.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
     : null;
 
   return (
@@ -30,31 +45,34 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
       transition={{ duration: 0.4, delay: index * 0.1 }}
       className="group"
     >
-      <Link href={`/blog/${post.slug}`} className="block">
+      <Link href={`/blog/${slug}`} className="block">
         <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
-          {featuredImage?.url ? (
+          {featuredImage ? (
             <Image
-              src={featuredImage.url}
-              alt={featuredImage.alt || post.title}
+              src={featuredImage}
+              alt={title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
-            <div className="w-full h-full bg-silver" />
+            <div className="w-full h-full bg-gradient-to-br from-gold/10 to-bronze/10 flex items-center justify-center">
+              <span className="text-4xl font-bold text-gold/30">F2F</span>
+            </div>
           )}
-          {category && (
+          {categoryName && (
             <span className="absolute top-4 left-4 px-3 py-1 bg-gold text-white text-xs font-medium rounded-full">
-              {category.name}
+              {categoryName}
             </span>
           )}
         </div>
 
         <div className="space-y-3">
           <h3 className="text-xl font-semibold text-midnight group-hover:text-gold transition-colors duration-200 line-clamp-2">
-            {post.title}
+            {title}
           </h3>
 
-          <p className="text-midnight/70 line-clamp-2">{post.excerpt}</p>
+          {excerpt && <p className="text-midnight/70 line-clamp-2">{excerpt}</p>}
 
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-4 text-sm text-midnight/60">
@@ -64,10 +82,10 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
                   {formattedDate}
                 </span>
               )}
-              {post.readTime && (
+              {readTime && (
                 <span className="flex items-center gap-1">
                   <Clock className="w-4 h-4" />
-                  {post.readTime} min read
+                  {readTime} min read
                 </span>
               )}
             </div>

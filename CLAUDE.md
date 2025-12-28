@@ -33,7 +33,69 @@ Floor2Feed is a high-converting landing page for an AI-powered social media mana
 - **Animations**: Framer Motion
 - **Forms**: React Hook Form + Zod
 - **Icons**: Lucide React
+- **CMS**: Keystatic (file-based, Git-native)
 - **Deployment**: Vercel
+
+## CMS: Keystatic
+
+### Why Keystatic (Not Payload)
+- **Payload CMS was abandoned** due to complexity (PostgreSQL, migrations, 500 errors on Vercel)
+- **Keystatic is file-based**: No database, content stored as YAML/JSON/MDX files in repo
+- **AI-agent friendly**: Claude Code can directly edit content files for SEO optimization
+- **Visual admin UI**: Available at `/keystatic` for non-technical users
+- **Git-native**: All content changes tracked in version control
+
+### Content Structure
+```
+├── content/
+│   ├── posts/           # Blog posts (MDX files with YAML frontmatter)
+│   │   ├── post-slug.mdx      # Single file per post (NOT folders!)
+│   │   └── another-post.mdx
+│   ├── categories/      # Category definitions (YAML)
+│   │   └── category-slug.yaml
+│   └── authors/         # Author profiles (YAML)
+│       └── author-slug.yaml
+├── public/
+│   └── images/
+│       └── blog/        # Shared blog images
+```
+
+**IMPORTANT**: Posts are single `.mdx` files, NOT folders. The filename (without extension) is the slug.
+
+### Keystatic Config Location
+- `keystatic.config.tsx` - Schema definitions for posts, categories, authors
+
+### Admin UI Access
+- **Local**: http://localhost:3000/keystatic
+- **Production**: https://floor2feed.vercel.app/keystatic
+
+### For AI SEO Agent (Claude Code)
+When managing blog content:
+1. **Create post**: Create `content/posts/[slug].mdx` file with frontmatter and MDX content
+2. **Edit metadata**: Modify YAML frontmatter (title, excerpt, seo fields)
+3. **Edit content**: Modify MDX body after the `---` frontmatter
+4. **Add images**: Place in `public/images/blog/` and reference as `/images/blog/filename.jpg`
+5. **Manage SEO**: Edit `seo.metaTitle`, `seo.metaDescription`, `alt` tags
+
+### Content Schema Quick Reference
+
+**Post frontmatter:**
+```yaml
+title: "Post Title"
+slug: "post-slug"
+excerpt: "Short description (max 300 chars)"
+publishedAt: "2025-12-28"
+status: "published" # or "draft"
+featuredImage: "/images/blog/featured.jpg"
+author: "author-slug"
+category: "category-slug"
+tags: ["tag1", "tag2"]
+readTime: 5
+seo:
+  metaTitle: "SEO Title (max 60 chars)"
+  metaDescription: "SEO description (max 160 chars)"
+  ogImage: "/images/blog/og-image.jpg"
+```
 
 ## Design System
 
@@ -65,20 +127,32 @@ Use Tailwind classes: `bg-midnight`, `text-gold`, `border-silver`, etc.
 ## Project Structure
 
 ```
+├── content/                    # Keystatic content (Git-tracked)
+│   ├── posts/                  # Blog posts (MDX)
+│   ├── categories/             # Category definitions
+│   └── authors/                # Author profiles
+├── keystatic.config.tsx        # Keystatic schema
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx          # Root layout
 │   │   ├── page.tsx            # Homepage
-│   │   └── globals.css         # Global styles + Tailwind theme
+│   │   ├── globals.css         # Global styles + Tailwind theme
+│   │   ├── blog/               # Blog pages
+│   │   │   ├── page.tsx        # Blog listing
+│   │   │   └── [slug]/page.tsx # Individual post
+│   │   ├── keystatic/          # Keystatic admin UI route
+│   │   └── api/keystatic/      # Keystatic API route
 │   ├── components/
 │   │   ├── ui/                 # Shadcn/ui components
 │   │   ├── layout/             # Navbar, Footer, Section, Container
 │   │   ├── sections/           # Hero, Problem, Solution, etc.
 │   │   ├── features/           # YouTubeEmbed, Timeline, etc.
+│   │   ├── blog/               # Blog components
 │   │   └── forms/              # ContactForm, Newsletter
 │   ├── lib/
 │   │   ├── utils.ts            # cn() function, utilities
-│   │   └── animations.ts       # Framer Motion variants
+│   │   ├── animations.ts       # Framer Motion variants
+│   │   └── keystatic.ts        # Keystatic content readers
 │   └── hooks/                  # Custom hooks
 ```
 

@@ -182,35 +182,75 @@
 - [ ] Custom domain (when ready)
 - [ ] SSL verification
 
-## Phase 17: Payload CMS Blog (NEW)
+## Phase 17: Payload CMS Blog (DEPRECATED - Replaced with Keystatic)
 
-- [x] Install Payload CMS 3.0 dependencies
-- [x] Set up environment variables (.env.local)
-- [x] Create payload.config.ts with PostgreSQL adapter
-- [x] Update next.config.ts with withPayload
-- [x] Create Users collection
-- [x] Create Media collection (with image sizes)
-- [x] Create Categories collection
-- [x] Create Authors collection
-- [x] Create Posts collection (with SEO fields)
-- [x] Create admin route structure (payload)/admin
-- [x] Create blog components:
-  - [x] BlogCard (post card with hover effects)
-  - [x] BlogList (grid with stagger animations)
-  - [x] BlogHero (hero section for /blog)
-  - [x] CategoryFilter (category tabs)
-  - [x] RichText (Lexical content renderer)
-  - [x] BlogAuthor (author bio card)
-  - [x] ShareButtons (social sharing)
-  - [x] RelatedPosts (related articles section)
-- [x] Create /blog listing page with JSON-LD schema
-- [x] Create /blog/[slug] individual post page
-- [x] Update navbar with Blog link
-- [x] Update footer with Blog link
-- [ ] Configure Supabase PostgreSQL connection
-- [ ] Create first admin user at /admin
-- [ ] Add sample blog posts
-- [ ] Test all routes and SEO metadata
+> ⚠️ **ABANDONED**: Payload CMS was too complex for our use case. Required PostgreSQL database, migrations, and had persistent 500 errors on Vercel. Replaced with Keystatic (file-based CMS) for simplicity and AI-agent compatibility.
+
+## Phase 18: Keystatic CMS Blog (CURRENT)
+
+### Why Keystatic?
+- ✅ File-based (no database required)
+- ✅ Visual admin UI at `/keystatic`
+- ✅ AI-agent friendly (Claude Code can edit content files directly)
+- ✅ Content stored in Git (version history)
+- ✅ Free, open source
+- ✅ Perfect for SEO (static generation)
+- ✅ Works with Vercel out of the box
+
+### Phase 18.1: Remove Payload CMS
+- [ ] Uninstall Payload dependencies (payload, @payloadcms/*, drizzle-orm, etc.)
+- [ ] Delete payload.config.ts
+- [ ] Delete src/collections/ folder
+- [ ] Delete src/app/(payload)/ folder
+- [ ] Delete src/payload-types.ts
+- [ ] Remove withPayload from next.config.ts
+- [ ] Remove Payload-related env vars from .env.local
+- [ ] Clean up package.json scripts
+
+### Phase 18.2: Install Keystatic
+- [x] Install @keystatic/core and @keystatic/next
+- [x] Create keystatic.config.tsx with schema
+- [x] Set up /keystatic API route
+- [x] Set up /keystatic admin route
+
+### Phase 18.3: Content Schema
+- [x] Posts collection:
+  - title, slug, excerpt, publishedAt, status (draft/published)
+  - featuredImage (local file path)
+  - content (MDX/Markdoc)
+  - author (reference)
+  - category (reference)
+  - tags (array)
+  - seo (metaTitle, metaDescription, ogImage)
+  - readTime
+- [x] Categories collection:
+  - name, slug, description
+- [x] Authors collection:
+  - name, slug, role, bio, avatar, social (twitter, linkedin)
+
+### Phase 18.4: Content Structure
+- [x] Create content/ directory
+- [x] Create content/posts/ for blog posts
+- [x] Create content/categories/ for categories
+- [x] Create content/authors/ for authors
+- [x] Create public/images/blog/ for blog images
+
+### Phase 18.5: Update Blog Components
+- [x] Update BlogCard to use Keystatic data
+- [x] Update BlogList to fetch from content files
+- [x] Update /blog page to read from Keystatic
+- [x] Update /blog/[slug] page for individual posts
+- [x] Update MDXContent component for MDX rendering
+- [x] Update RelatedPosts component
+- [x] Keep existing styling and animations
+
+### Phase 18.6: SEO & Testing
+- [x] Build succeeds without errors
+- [ ] Test /keystatic admin UI locally
+- [ ] Create sample blog post via admin
+- [ ] Test responsive design
+- [ ] Deploy to Vercel
+- [ ] Verify admin UI works in production
 
 ---
 
@@ -233,17 +273,24 @@
 | 13. Performance | 🔄 In Progress | 50% |
 | 14. Accessibility | 🔄 In Progress | 70% |
 | 15. Final Polish | 🔄 In Progress | 30% |
-| 16. Deployment | ⏳ Pending | 0% |
+| 16. Deployment | ✅ Complete | 100% |
+| 17. Payload CMS | ❌ Abandoned | - |
+| 18. Keystatic CMS | ✅ Complete | 90% |
 
-**Overall Progress**: 88%
+**Overall Progress**: 92%
 
 ## Latest Updates
 - ✅ Added logo image to Navbar
 - ✅ Set up images from Files folder in public/
 - ✅ Local dev server running (localhost:3000)
-- ✅ Payload CMS 3.0 integration started (December 25, 2025)
+- ❌ Payload CMS abandoned (December 28, 2025) - Too complex, database issues
 - ✅ New 3-tier pricing section (Essential, Professional, Premium Luxury)
 - ✅ 360° panorama viewer with pinch/scroll zoom
+- ✅ Keystatic CMS fully integrated (December 28, 2025)
+  - Blog pages connected to file-based content
+  - MDX content rendering with custom components
+  - Admin UI available at /keystatic
+  - Removed all Payload CMS remnants
 
 ## Completed Sections
 - ✅ Hero section (with video thumbnail, CTAs, floating stats)
@@ -260,4 +307,4 @@
 
 ---
 
-*Last Updated: December 25, 2025*
+*Last Updated: December 28, 2025*

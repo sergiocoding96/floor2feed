@@ -2,21 +2,29 @@
 
 import Image from "next/image";
 import { Linkedin, Twitter } from "lucide-react";
-import type { Author, Media } from "@/payload-types";
+
+interface AuthorData {
+  name: string;
+  role?: string;
+  bio?: string;
+  avatar?: string;
+  social?: {
+    twitter?: string;
+    linkedin?: string;
+  };
+}
 
 interface BlogAuthorProps {
-  author: Author;
+  author: AuthorData;
 }
 
 export function BlogAuthor({ author }: BlogAuthorProps) {
-  const avatar = author.avatar as Media | undefined;
-
   return (
     <div className="flex items-start gap-4 p-6 bg-pearl rounded-xl">
-      {avatar?.url && (
+      {author.avatar && (
         <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
           <Image
-            src={avatar.url}
+            src={author.avatar}
             alt={author.name}
             fill
             className="object-cover"

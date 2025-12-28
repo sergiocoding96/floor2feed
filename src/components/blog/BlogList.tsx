@@ -1,10 +1,21 @@
 "use client";
 
 import { BlogCard } from "./BlogCard";
-import type { Post } from "@/payload-types";
+
+interface KeystaticPost {
+  slug: string;
+  entry: {
+    title: string;
+    excerpt?: string | null;
+    featuredImage?: string | null;
+    publishedAt?: string | null;
+    readTime?: number | null;
+    category?: string | null;
+  };
+}
 
 interface BlogListProps {
-  posts: Post[];
+  posts: KeystaticPost[];
 }
 
 export function BlogList({ posts }: BlogListProps) {
@@ -19,7 +30,17 @@ export function BlogList({ posts }: BlogListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {posts.map((post, index) => (
-        <BlogCard key={post.id} post={post} index={index} />
+        <BlogCard
+          key={post.slug}
+          slug={post.slug}
+          title={post.entry.title}
+          excerpt={post.entry.excerpt}
+          featuredImage={post.entry.featuredImage}
+          publishedAt={post.entry.publishedAt}
+          readTime={post.entry.readTime}
+          category={post.entry.category}
+          index={index}
+        />
       ))}
     </div>
   );
