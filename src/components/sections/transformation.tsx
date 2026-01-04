@@ -198,37 +198,11 @@ export function Transformation() {
               </div>
             </div>
 
-            {/* Demo Video */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 1.0, duration: 0.5 }}
-              className="mt-12 max-w-3xl mx-auto"
-            >
-              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-midnight">
-                {/* Decorative corners */}
-                <div className="absolute top-0 left-0 w-10 sm:w-16 h-10 sm:h-16 border-t-4 border-l-4 border-gold rounded-tl-2xl z-10" />
-                <div className="absolute top-0 right-0 w-10 sm:w-16 h-10 sm:h-16 border-t-4 border-r-4 border-gold rounded-tr-2xl z-10" />
-                <div className="absolute bottom-0 left-0 w-10 sm:w-16 h-10 sm:h-16 border-b-4 border-l-4 border-gold rounded-bl-2xl z-10" />
-                <div className="absolute bottom-0 right-0 w-10 sm:w-16 h-10 sm:h-16 border-b-4 border-r-4 border-gold rounded-br-2xl z-10" />
-
-                <div className="aspect-video relative">
-                  <iframe
-                    src="https://www.youtube.com/embed/cLPSK7-hl6w?rel=0&modestbranding=1"
-                    title="Floor2Feed Demo Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                  />
-                </div>
-              </div>
-            </motion.div>
-
             {/* Bottom CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 1.2, duration: 0.4 }}
+              transition={{ delay: 1.0, duration: 0.4 }}
               className="text-center mt-8"
             >
               <p className="text-midnight/60 text-sm mb-4">

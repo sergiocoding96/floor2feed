@@ -51,8 +51,8 @@ const tiers: Record<TierKey, Tier> = {
       refresh: "Weekly",
       abTesting: false,
       leadQualification: "None",
-      languages: 1,
-      languageList: "Spanish",
+      languages: 2,
+      languageList: "Spanish + English",
       supportHours: "24 hours",
     },
   },
@@ -92,28 +92,43 @@ const tiers: Record<TierKey, Tier> = {
       refresh: "Daily + bi-weekly rotation",
       abTesting: true,
       leadQualification: "Premium",
-      languages: 3,
-      languageList: "Trilingual",
+      languages: 2,
+      languageList: "Spanish + English",
       supportHours: "4 hours priority",
     },
   },
 };
 
-const setupIncludes = [
+// Base setup includes - shared across tiers
+const baseSetupIncludes = [
   "Marketing & creative strategy",
-  "Listings setup",
+  "Real Estate Portals Setup",
   "Initial batch of renders",
   "360° VR tour",
-  "Landing page creation",
   "Social media accounts setup",
 ];
+
+// Tier-specific setup includes
+const getSetupIncludes = (tierKey: TierKey): string[] => {
+  switch (tierKey) {
+    case "essential":
+      return [...baseSetupIncludes, "Landing page creation"];
+    case "professional":
+      // No landing page creation for Professional
+      return baseSetupIncludes;
+    case "premium":
+      // Premium includes Website creation instead of landing page
+      return [...baseSetupIncludes, "Website creation"];
+    default:
+      return baseSetupIncludes;
+  }
+};
 
 const featureList = [
   { key: "renders", label: "AI Renders/month" },
   { key: "videos", label: "Videos/month" },
   { key: "carousels", label: "Carousels/month" },
   { key: "platforms", label: "Social Platforms" },
-  { key: "portals", label: "Portals Managed" },
   { key: "languages", label: "Languages" },
 ];
 
@@ -174,7 +189,7 @@ function TierCard({ tierKey, tier, isSelected, onSelect }: {
           Setup includes:
         </p>
         <ul className="space-y-1.5">
-          {setupIncludes.map((item) => (
+          {getSetupIncludes(tierKey).map((item) => (
             <li key={item} className="flex items-center gap-2 text-xs text-midnight/70">
               <Check className="w-3 h-3 text-gold/70 flex-shrink-0" />
               <span>{item}</span>

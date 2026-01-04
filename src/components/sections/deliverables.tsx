@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Image as ImageIcon, Video, View, Share2 } from "lucide-react";
+import { Image as ImageIcon, Video, View, Share2, Building2 } from "lucide-react";
 import Image from "next/image";
 import { Container, Section } from "@/components/layout";
 import { fadeInUp, staggerContainer, cardHover } from "@/lib/animations";
@@ -39,6 +39,14 @@ const deliverables = [
       "Professionally designed content for Instagram, Facebook, and LinkedIn. Captions, hashtags, and posting schedule included.",
     image: "/images/deliverable-social.jpg",
     features: ["Multi-Platform", "Bilingual Captions", "Content Calendar"],
+  },
+  {
+    icon: Building2,
+    title: "Listing Management",
+    description:
+      "We handle your property listings on major real estate portals. Professional descriptions, optimized photos, and regular updates.",
+    image: "/images/deliverable-listings.jpg",
+    features: ["4+ Major Portals", "SEO Optimized", "Lead Tracking"],
   },
 ];
 
@@ -101,12 +109,46 @@ export function Deliverables() {
           </motion.div>
         </motion.div>
 
+        {/* Demo Video - Above Deliverables */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="mb-16 max-w-3xl mx-auto"
+        >
+          <div className="text-center mb-6">
+            <h3 className="text-xl font-semibold text-midnight mb-2">
+              See It In Action
+            </h3>
+            <p className="text-midnight/60">
+              Watch how Floor2Feed transforms a single floor plan into months of professional content.
+            </p>
+          </div>
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-midnight">
+            {/* Decorative corners */}
+            <div className="absolute top-0 left-0 w-10 sm:w-16 h-10 sm:h-16 border-t-4 border-l-4 border-gold rounded-tl-2xl z-10" />
+            <div className="absolute top-0 right-0 w-10 sm:w-16 h-10 sm:h-16 border-t-4 border-r-4 border-gold rounded-tr-2xl z-10" />
+            <div className="absolute bottom-0 left-0 w-10 sm:w-16 h-10 sm:h-16 border-b-4 border-l-4 border-gold rounded-bl-2xl z-10" />
+            <div className="absolute bottom-0 right-0 w-10 sm:w-16 h-10 sm:h-16 border-b-4 border-r-4 border-gold rounded-br-2xl z-10" />
+
+            <div className="aspect-video relative">
+              <iframe
+                src="https://www.youtube.com/embed/cLPSK7-hl6w?rel=0&modestbranding=1"
+                title="Floor2Feed Demo Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
+        </motion.div>
+
         {/* Deliverables Grid */}
         <motion.div
           initial="initial"
           animate={isInView ? "animate" : "initial"}
           variants={staggerContainer}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6"
         >
           {deliverables.map((deliverable) => (
             <motion.div
