@@ -90,7 +90,7 @@ export function Navbar() {
                 className="text-midnight hover:text-gold"
                 asChild
               >
-                <Link href="#demo">Watch Demo</Link>
+                <Link href="#transformation">Watch Demo</Link>
               </Button>
               <Button
                 className="bg-gold hover:bg-bronze text-white font-medium px-6"
@@ -154,7 +154,7 @@ export function Navbar() {
                   onClick={handleLinkClick}
                   asChild
                 >
-                  <Link href="#demo">Watch Demo</Link>
+                  <Link href="#transformation">Watch Demo</Link>
                 </Button>
                 <Button
                   className="w-full h-12 bg-gold hover:bg-bronze text-white font-medium"

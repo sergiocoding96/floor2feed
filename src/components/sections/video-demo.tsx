@@ -6,7 +6,7 @@ import { Play } from "lucide-react";
 import { Container, Section } from "@/components/layout";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
-const DEMO_VIDEO_ID = "cLPSK7-hl6w";
+const DEMO_VIDEO_ID = "_fY3v6FwqZE";
 
 export function VideoDemo() {
   const ref = useRef<HTMLDivElement>(null);

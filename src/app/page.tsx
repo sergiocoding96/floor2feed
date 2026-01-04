@@ -7,8 +7,6 @@ import {
   Transformation,
   Deliverables,
   PricingTiers,
-  Process,
-  CaseStudies,
   FAQ,
   ContactCTA,
 } from "@/components/sections";
@@ -24,9 +22,7 @@ export default function Home() {
         <VideoDemo />
         <Transformation />
         <Deliverables />
-        <Process />
         <PricingTiers />
-        <CaseStudies />
         <FAQ />
         <ContactCTA />
       </main>

@@ -202,8 +202,8 @@ export function Transformation() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 1.2, duration: 0.4 }}
-              className="text-center mt-12"
+              transition={{ delay: 1.0, duration: 0.4 }}
+              className="text-center mt-8"
             >
               <p className="text-midnight/60 text-sm mb-4">
                 All this content from{" "}
