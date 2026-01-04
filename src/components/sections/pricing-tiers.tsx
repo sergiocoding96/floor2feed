@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
-import { Check, X, Star, TrendingDown } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
@@ -31,7 +30,7 @@ interface Tier {
   name: string;
   setup: number;
   monthly: number;
-  marketValue: number;
+  marketPriceRange: [number, number];
   popular?: boolean;
   features: TierFeatures;
 }
@@ -41,7 +40,7 @@ const tiers: Record<TierKey, Tier> = {
     name: "Essential",
     setup: 5500,
     monthly: 2499,
-    marketValue: 13800,
+    marketPriceRange: [5100, 8900],
     features: {
       renders: 20,
       videos: 4,
@@ -61,7 +60,7 @@ const tiers: Record<TierKey, Tier> = {
     name: "Professional",
     setup: 6500,
     monthly: 3499,
-    marketValue: 35700,
+    marketPriceRange: [10200, 16200],
     popular: true,
     features: {
       renders: 40,
@@ -82,7 +81,7 @@ const tiers: Record<TierKey, Tier> = {
     name: "Premium Luxury",
     setup: 10000,
     monthly: 5999,
-    marketValue: 46799,
+    marketPriceRange: [20100, 32500],
     features: {
       renders: 60,
       videos: 12,
@@ -100,6 +99,15 @@ const tiers: Record<TierKey, Tier> = {
   },
 };
 
+const setupIncludes = [
+  "Marketing & creative strategy",
+  "Listings setup",
+  "Initial batch of renders",
+  "360° VR tour",
+  "Landing page creation",
+  "Social media accounts setup",
+];
+
 const featureList = [
   { key: "renders", label: "AI Renders/month" },
   { key: "videos", label: "Videos/month" },
@@ -109,17 +117,6 @@ const featureList = [
   { key: "languages", label: "Languages" },
 ];
 
-const comparisonRows = [
-  { label: "Renders/Month", key: "renders" },
-  { label: "Videos/Month", key: "videos" },
-  { label: "Carousels/Month", key: "carousels" },
-  { label: "Platforms", key: "platforms" },
-  { label: "Portal Refresh", key: "refresh" },
-  { label: "A/B Testing", key: "abTesting" },
-  { label: "Lead Qualification", key: "leadQualification" },
-  { label: "Languages", key: "languages" },
-  { label: "Support Response", key: "supportHours" },
-];
 
 function TierCard({ tierKey, tier, isSelected, onSelect }: {
   tierKey: TierKey;
@@ -146,7 +143,7 @@ function TierCard({ tierKey, tier, isSelected, onSelect }: {
         </div>
       )}
 
-      <div className="text-center mb-6">
+      <div className="text-center mb-4">
         <h3 className="text-xl font-semibold text-midnight mb-2">{tier.name}</h3>
         <div className="flex items-baseline justify-center gap-1">
           <span className="text-4xl md:text-5xl font-bold text-midnight">
@@ -154,11 +151,42 @@ function TierCard({ tierKey, tier, isSelected, onSelect }: {
           </span>
           <span className="text-midnight/60">/mo</span>
         </div>
+        {/* Market Price Comparison */}
+        <div className="mt-2 space-y-1">
+          <p className="text-sm text-midnight/50">
+            Market price:{" "}
+            <span className="line-through text-midnight/40">
+              €{tier.marketPriceRange[0].toLocaleString()}+
+            </span>
+          </p>
+          <p className="text-xs font-medium text-gold">
+            Save {Math.round(((tier.marketPriceRange[0] - tier.monthly) / tier.marketPriceRange[0]) * 100)}%+ vs market
+          </p>
+        </div>
         <p className="text-sm text-midnight/50 mt-2">
           Setup: €{tier.setup.toLocaleString()}
         </p>
       </div>
 
+      {/* Setup Includes */}
+      <div className="mb-4 pb-4 border-b border-silver/50">
+        <p className="text-xs font-medium text-midnight/50 uppercase tracking-wide mb-2">
+          Setup includes:
+        </p>
+        <ul className="space-y-1.5">
+          {setupIncludes.map((item) => (
+            <li key={item} className="flex items-center gap-2 text-xs text-midnight/70">
+              <Check className="w-3 h-3 text-gold/70 flex-shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Monthly Deliverables */}
+      <p className="text-xs font-medium text-midnight/50 uppercase tracking-wide mb-2">
+        Monthly:
+      </p>
       <ul className="space-y-3 mb-6">
         {featureList.map((feature) => (
           <li key={feature.key} className="flex items-center gap-3 text-sm">
@@ -194,139 +222,7 @@ function TierCard({ tierKey, tier, isSelected, onSelect }: {
   );
 }
 
-function CostComparisonBar({ selectedTier }: { selectedTier: TierKey }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const tier = tiers[selectedTier];
-  const floor2feedTotal = tier.setup + tier.monthly * 12;
-  const traditionalTotal = tier.marketValue * 12;
-  const savings = traditionalTotal - floor2feedTotal;
-  const savingsPercent = Math.round((savings / traditionalTotal) * 100);
-  const floor2feedWidth = (floor2feedTotal / traditionalTotal) * 100;
-
-  return (
-    <div ref={ref} className="bg-pearl rounded-2xl p-6 md:p-8">
-      <h3 className="text-xl font-semibold text-midnight mb-6 text-center">
-        12-Month Cost Comparison: {tier.name}
-      </h3>
-
-      <div className="space-y-6">
-        {/* Traditional Agency Bar (Full Width) */}
-        <div>
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-midnight/70">Traditional Agency</span>
-            <span className="text-lg font-bold text-midnight">
-              €{traditionalTotal.toLocaleString()}
-            </span>
-          </div>
-          <div className="h-12 bg-midnight/10 rounded-lg relative overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={isInView ? { width: "100%" } : { width: 0 }}
-              transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-              className="absolute inset-y-0 left-0 bg-midnight/80 rounded-lg"
-            />
-            {/* Floor2Feed Stacked Inside */}
-            <motion.div
-              initial={{ width: 0 }}
-              animate={isInView ? { width: `${floor2feedWidth}%` } : { width: 0 }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-              className="absolute inset-y-0 left-0 bg-gold rounded-lg flex items-center justify-end pr-3"
-            >
-              <span className="text-white text-sm font-medium whitespace-nowrap">
-                Floor2Feed
-              </span>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Floor2Feed Details */}
-        <div className="flex justify-between items-center text-sm">
-          <span className="text-midnight/70">
-            Floor2Feed {tier.name}: €{tier.setup.toLocaleString()} setup + €{tier.monthly.toLocaleString()}/mo × 12
-          </span>
-          <span className="font-semibold text-gold">
-            €{floor2feedTotal.toLocaleString()}
-          </span>
-        </div>
-
-        {/* Savings Callout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 1 }}
-          className="bg-gradient-to-r from-gold to-bronze rounded-xl p-6 text-center"
-        >
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <TrendingDown className="w-6 h-6 text-white" />
-            <span className="text-white/90 font-medium">You Save</span>
-          </div>
-          <div className="text-3xl md:text-4xl font-bold text-white">
-            €{savings.toLocaleString()}
-          </div>
-          <div className="text-white/80 mt-1">
-            {savingsPercent}% less than traditional agencies
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function OutputComparisonTable() {
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[600px]">
-        <thead>
-          <tr className="border-b border-silver">
-            <th className="text-left py-4 px-4 text-midnight/60 font-medium">What You Get</th>
-            {(Object.keys(tiers) as TierKey[]).map((key) => (
-              <th
-                key={key}
-                className={cn(
-                  "text-center py-4 px-4 font-semibold",
-                  tiers[key].popular ? "text-gold" : "text-midnight"
-                )}
-              >
-                {tiers[key].name}
-                {tiers[key].popular && <Star className="w-4 h-4 inline ml-1 fill-gold text-gold" />}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {comparisonRows.map((row, index) => (
-            <tr key={row.key} className={index % 2 === 0 ? "bg-pearl/50" : ""}>
-              <td className="py-3 px-4 text-midnight/80">{row.label}</td>
-              {(Object.keys(tiers) as TierKey[]).map((tierKey) => {
-                const value = tiers[tierKey].features[row.key as keyof TierFeatures];
-                return (
-                  <td key={tierKey} className="text-center py-3 px-4">
-                    {typeof value === "boolean" ? (
-                      value ? (
-                        <Check className="w-5 h-5 text-gold mx-auto" />
-                      ) : (
-                        <X className="w-5 h-5 text-midnight/30 mx-auto" />
-                      )
-                    ) : (
-                      <span className={cn(
-                        "font-medium",
-                        tiers[tierKey].popular ? "text-gold" : "text-midnight"
-                      )}>
-                        {value}
-                      </span>
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
 
 export function PricingTiers() {
   const [selectedTier, setSelectedTier] = useState<TierKey>("professional");
@@ -378,31 +274,6 @@ export function PricingTiers() {
               onSelect={() => setSelectedTier(tierKey)}
             />
           ))}
-        </motion.div>
-
-        {/* Cost Comparison */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
-        >
-          <CostComparisonBar selectedTier={selectedTier} />
-        </motion.div>
-
-        {/* Output Comparison Table */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white rounded-2xl border border-silver p-6 md:p-8"
-        >
-          <h3 className="text-xl font-semibold text-midnight mb-6 text-center">
-            Detailed Comparison
-          </h3>
-          <OutputComparisonTable />
         </motion.div>
 
         {/* Bottom CTA */}

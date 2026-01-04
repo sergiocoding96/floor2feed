@@ -10,7 +10,7 @@ import { fadeInUp, staggerContainer, cardHover } from "@/lib/animations";
 const deliverables = [
   {
     icon: ImageIcon,
-    title: "10 AI Architectural Renders",
+    title: "AI Architectural Renders",
     description:
       "Photorealistic interior and exterior visualizations from your floor plans. Multiple styles, lighting conditions, and seasonal variations.",
     image: "/images/deliverable-renders.jpg",
@@ -34,7 +34,7 @@ const deliverables = [
   },
   {
     icon: Share2,
-    title: "15 Monthly Social Posts",
+    title: "Monthly Social Posts",
     description:
       "Professionally designed content for Instagram, Facebook, and LinkedIn. Captions, hashtags, and posting schedule included.",
     image: "/images/deliverable-social.jpg",
